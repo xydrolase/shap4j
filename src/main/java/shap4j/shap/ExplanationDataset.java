@@ -63,7 +63,7 @@ public class ExplanationDataset extends Pointer {
 
         int offset = 0;
         for (int i = 0; i < num_X; ++i, offset += M) {
-            XPtr.put(matrix[i], offset, M);
+            XPtr.position(offset).put(matrix[i], 0, M);
 
             if (checkMissing) {
                 for (int j = 0; j < M; ++j) {

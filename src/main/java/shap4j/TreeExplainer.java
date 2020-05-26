@@ -47,7 +47,7 @@ public class TreeExplainer {
         double[][] values = new double[nRows][nCols - 1];
         int offset = 0;
         for (int i = 0; i < nRows; ++i, offset += nCols) {
-            phi.position(offset).limit(nCols).asBuffer().get(values[i], 0, nCols - 1);
+            phi.position(offset).limit(offset + nCols).asBuffer().get(values[i], 0, nCols - 1);
         }
 
         dataset.close();

@@ -45,6 +45,16 @@ public class TreeEnsemble extends Pointer {
     public native int num_outputs(); private native void num_outputs(int setter);
     public native int tree_limit(); private native void tree_limit(int setter);
     public native int max_nodes(); private native void max_nodes(int setter);
+    native IntPointer children_left(); private native void children_left(IntPointer setter);
+    native IntPointer children_right(); private native void children_right(IntPointer setter);
+
+    public int getChildrenLeft(int treeIndex, int nodeIndex) {
+        return children_left().get(treeIndex * max_nodes() + nodeIndex);
+    }
+
+    public int getChildrenRight(int treeIndex, int nodeIndex) {
+        return children_right().get(treeIndex * max_nodes() + nodeIndex);
+    }
 
     public native void free();
 

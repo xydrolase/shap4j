@@ -46,6 +46,9 @@ public class ExplanationDataset extends Pointer {
 
     public native void get_x_instance(@ByRef ExplanationDataset instance, @Const int i);
 
+    native DoublePointer X(); private native void X(DoublePointer setter);
+    native BoolPointer X_missing(); private native void X_missing(BoolPointer setter);
+
     public static ExplanationDataset fromMatrix(double[][] matrix, boolean checkMissing) {
         assert matrix.length > 0;
 
@@ -72,6 +75,7 @@ public class ExplanationDataset extends Pointer {
             }
         }
 
-        return new ExplanationDataset(XPtr, XmissingPtr, null, null, null, num_X, M, 0);
+        // reset position for X
+        return new ExplanationDataset(XPtr.position(0L), XmissingPtr, null, null, null, num_X, M, 0);
     }
 }

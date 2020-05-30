@@ -2,13 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>org.xydrolase</groupId>
-    <artifactId>shap4j</artifactId>
+    <artifactId>shap4j-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <properties>
-        <java.cpp.version>1.5.3</java.cpp.version>
+        <javacpp.moduleId>shap4j</javacpp.moduleId>
+        <javacpp.version>1.5.3</javacpp.version>
+        <javacpp.platform></javacpp.platform>
+        <javacpp.platform.nativeOutputPath>org/bytedeco/${project.artifactId}/${javacpp.platform}</javacpp.platform.nativeOutputPath>
         <scala.version>2.12.11</scala.version>
         <scala.binary.version>2.12</scala.binary.version>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -16,81 +20,33 @@
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>${scala.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacpp</artifactId>
-            <version>${java.cpp.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacpp-platform</artifactId>
-            <version>1.5.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_${scala.binary.version}</artifactId>
-            <version>3.1.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>shap4j</module>
+        <module>platform</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.bytedeco</groupId>
+                <artifactId>javacpp</artifactId>
+                <version>${javacpp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bytedeco</groupId>
+                <artifactId>javacpp-platform</artifactId>
+                <version>${javacpp.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
+        <pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <executions>
-                    <execution>
-                        <id>scala-compile-first</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>scala-test-compile-first</id>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>attach-scaladocs</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>doc-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <scalaVersion>${scala.version}</scalaVersion>
-                    <recompileMode>incremental</recompileMode>
-                    <args>
-                        <arg>-Xlint</arg>
-                        <arg>-unchecked</arg>
-                        <arg>-deprecation</arg>
-                        <arg>-feature</arg>
-                        <arg>-explaintypes</arg>
-                        <arg>-target:jvm-1.8</arg>
-                    </args>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.bytedeco</groupId>
                 <artifactId>javacpp</artifactId>
-                <version>${java.cpp.version}</version>
+                <version>${javacpp.version}</version>
                 <configuration>
                     <classPath>${project.build.outputDirectory}</classPath>
                     <includePaths>
@@ -106,6 +62,7 @@
                             <goal>build</goal>
                         </goals>
                         <configuration>
+                            <outputDirectory>${project.build.directory}/native/${javacpp.platform.nativeOutputPath}</outputDirectory>
                             <classOrPackageNames>
                                 <classOrPackageName>shap4j.shap.*</classOrPackageName>
                             </classOrPackageNames>
@@ -114,18 +71,59 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.scalatest</groupId>
-                <artifactId>scalatest-maven-plugin</artifactId>
-                <version>1.0</version>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
+                    <!--
                     <execution>
-                        <id>test</id>
+                        <id>default-jar</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>test</goal>
+                            <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <includes>
+                                <include>org/bytedeco/${javacpp.packageName}/**</include>
+                            </includes>
+                            <excludes>
+                                <exclude>org/bytedeco/${javacpp.packageName}/include/</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    -->
+                    <execution>
+                        <id>javacpp-${javacpp.platform}</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>${javacpp.platform}</classifier>
+                            <skipIfEmpty>true</skipIfEmpty>
+                            <includes>
+                                <!-- In case of successive builds for multiple platforms
+                                     without cleaning, ensures we only include files for
+                                     this platform. -->
+                                <include>${javacpp.platform.nativeOutputPath}/</include>
+                            </includes>
+                            <archive>
+                                <manifestEntries>
+                                    <Multi-Release>true</Multi-Release>
+                                </manifestEntries>
+                            </archive>
+                            <classesDirectory>${project.build.directory}/native</classesDirectory>
+                            <!--
+                            <excludes>
+                                <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.exp</exclude>
+                                <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.lib</exclude>
+                                <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.obj</exclude>
+                            </excludes>
+                            -->
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -145,38 +143,8 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-            </plugin>
+            -->
         </plugins>
+        </pluginManagement>
     </build>
-
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
 </project>

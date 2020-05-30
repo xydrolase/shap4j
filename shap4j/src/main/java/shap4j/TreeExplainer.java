@@ -6,10 +6,6 @@ import shap4j.shap.ExplanationDataset;
 import shap4j.shap.TreeEnsemble;
 import shap4j.shap.TreeShap;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.util.Arrays;
-
 public class TreeExplainer {
     private static final int TREE_PATH_DEPENDENT_FEATURE = 1;
     private static final int IDENTITY_TRANSFORM = 0;

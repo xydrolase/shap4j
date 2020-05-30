@@ -1,5 +1,7 @@
 # shap4j
 
+![Build Status](https://api.travis-ci.org/xydrolase/shap4j.svg?branch=master)
+
 JVM interface for the [SHAP (SHapley Additive exPlanations) library](https://github.com/slundberg/shap) for tree 
 ensembles (`TreeExplainer`.), built using [`javacpp`](https://github.com/bytedeco/javacpp)
 

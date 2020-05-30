@@ -1,7 +1,7 @@
 language: java
-install:
-  - mvn -B -V -pl shap4j -Djavacpp.platform=linux-x86_64 -DskipTests -Dmaven.javadoc.skip=true install
+install: skip
 script:
+  - mvn -B -V -pl shap4j -Djavacpp.platform=linux-x86_64 -DskipTests -Dmaven.javadoc.skip=true install
   - mvn -B -pl shap4j -Djavacpp.platform=linux-x86_64 clean compile test
 jdk:
   - openjdk8

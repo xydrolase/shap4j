@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.xydrolase</groupId>
+        <groupId>io.github.xydrolase</groupId>
         <artifactId>shap4j-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../</relativePath>

@@ -3,10 +3,39 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.xydrolase</groupId>
+    <groupId>io.github.xydrolase</groupId>
     <artifactId>shap4j-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <name>SHAP4j</name>
+    <description>Java wrapper of the SHAP library (https://github.com/slundberg/shap)</description>
+    <url>https://github.com/xydrolase/shap4j</url>
+
+    <organization>
+        <name>io.github.xydrolase</name>
+        <url>https://github.com/xydrolase/shap4j</url>
+    </organization>
+
+    <scm>
+        <url>https://github.com/xydrolase/shap4j</url>
+        <connection>scm:git:git://github.com/xydrolase/shap4j.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:xydrolase/shap4j.git</developerConnection>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/xydrolase/shap4j/blob/master/LICENSE</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Xin Yin</name>
+            <email>xydrolase@gmail.com</email>
+        </developer>
+    </developers>
 
     <properties>
         <javacpp.moduleId>shap4j</javacpp.moduleId>
@@ -147,4 +176,6 @@
         </plugins>
         </pluginManagement>
     </build>
+
+
 </project>

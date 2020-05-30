@@ -6,6 +6,11 @@ import shap4j.shap.ExplanationDataset;
 import shap4j.shap.TreeEnsemble;
 import shap4j.shap.TreeShap;
 
+/**
+ * A SHAP explainer using Tree SHAP algorithms to explain the output of tree ensemble models.
+ *
+ * @see <a href="https://github.com/slundberg/shap/blob/master/shap/explainers/tree.py>Python interface for TreeExplainer</a>
+ */
 public class TreeExplainer {
     private static final int TREE_PATH_DEPENDENT_FEATURE = 1;
     private static final int IDENTITY_TRANSFORM = 0;
@@ -16,11 +21,26 @@ public class TreeExplainer {
         this.treeEnsemble = ensemble;
     }
 
+    /**
+     * Create a instance of <code>TreeExplainer</code> from binary data: <code>rawData</code>.
+     * @see <a href="https://github.com/xydrolase/shap4j-data-converter/">shap4j-data-converter for creating the data</a>
+     * @param rawData The binary raw data representing a tree ensemble model, upon which a <code>TreeExplainer</code> is
+     *                based.
+     */
     public TreeExplainer(byte[] rawData) {
         this.treeEnsemble = TreeEnsemble.fromBytes(rawData);
     }
 
+
     // TODO: add support for TreeExplainer.data (a background dataset to use for integrating out features.)
+    /**
+     * Compute the SHAP values for a given 2-dimensional matrix: <code>matrix</code>.
+     * @param matrix The 2d matrix from which the SHAP values are computed. Each row in this matrix should correspond
+     *               to a feature vector.
+     * @param checkMissing Whether to check missing values in <code>matrix</code>. If set to false, all values in
+     *                     <code>matrix</code> are assumed to be non-missing (i.e. not <code>NaN</code>.)
+     * @return A 2d matrix containing the SHAP values, which should be of the same shape as the input <code>matrix</code>.
+     */
     public double[][] shapValues(double [][] matrix, boolean checkMissing) {
         assert matrix.length > 0;
 
@@ -52,6 +72,12 @@ public class TreeExplainer {
         return values;
     }
 
+    /**
+     * Compute SHAP values for a given feature vector: <code>vector</code>.
+     * @param vector A feature vector compatible with the tree ensemble model.
+     * @param checkMissing Whether to check missing values in the feature vector (<code>NaN</code>'s)
+     * @return An array containing SHAP values, which is of the same length of the input <code>vector</code>.
+     */
     public double[] shapValues(double [] vector, boolean checkMissing) {
         double[][] matrix = {vector};
 

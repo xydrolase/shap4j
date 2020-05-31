@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.xydrolase</groupId>
+        <groupId>io.github.xydrolase</groupId>
         <artifactId>shap4j-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../</relativePath>
@@ -20,14 +20,6 @@
             <artifactId>${javacpp.moduleId}</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>${javacpp.moduleId}</artifactId>
-            <version>${project.version}</version>
-            <classifier>linux-x86</classifier>
-        </dependency>
-        -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${javacpp.moduleId}</artifactId>
@@ -77,38 +69,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>org.moditect</groupId>
-                <artifactId>moditect-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-module-infos</id>
-                        <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>add-platform-module-info</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>add-module-info</goal>
-                        </goals>
-                        <configuration>
-                            <modules>
-                                <module>
-                                    <file>${project.build.directory}/${project.artifactId}.jar</file>
-                                    <moduleInfoSource>
-                                        module org.bytedeco.${javacpp.moduleId}.platform {
-                                        requires org.bytedeco.${javacpp.moduleId}.linux.x86_64;
-                                        requires org.bytedeco.${javacpp.moduleId}.macosx.x86_64;
-                                        }
-                                    </moduleInfoSource>
-                                </module>
-                            </modules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
         </plugins>
     </build>
 

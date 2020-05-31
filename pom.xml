@@ -3,10 +3,39 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.xydrolase</groupId>
+    <groupId>io.github.xydrolase</groupId>
     <artifactId>shap4j-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <name>shap4j</name>
+    <description>Java wrapper of the SHAP library (https://github.com/slundberg/shap)</description>
+    <url>https://github.com/xydrolase/shap4j</url>
+
+    <organization>
+        <name>io.github.xydrolase</name>
+        <url>https://github.com/xydrolase/shap4j</url>
+    </organization>
+
+    <scm>
+        <url>https://github.com/xydrolase/shap4j</url>
+        <connection>scm:git:git://github.com/xydrolase/shap4j.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:xydrolase/shap4j.git</developerConnection>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/xydrolase/shap4j/blob/master/LICENSE</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Xin Yin</name>
+            <email>xydrolase@gmail.com</email>
+        </developer>
+    </developers>
 
     <properties>
         <javacpp.moduleId>shap4j</javacpp.moduleId>
@@ -74,23 +103,6 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
-                    <!--
-                    <execution>
-                        <id>default-jar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>org/bytedeco/${javacpp.packageName}/**</include>
-                            </includes>
-                            <excludes>
-                                <exclude>org/bytedeco/${javacpp.packageName}/include/</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                    -->
                     <execution>
                         <id>javacpp-${javacpp.platform}</id>
                         <phase>package</phase>
@@ -112,39 +124,93 @@
                                 </manifestEntries>
                             </archive>
                             <classesDirectory>${project.build.directory}/native</classesDirectory>
-                            <!--
-                            <excludes>
-                                <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.exp</exclude>
-                                <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.lib</exclude>
-                                <exclude>org/bytedeco/${javacpp.packageName}/windows-*/*.obj</exclude>
-                            </excludes>
-                            -->
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
+                        <id>attach-sources</id>
                         <goals>
-                            <goal>single</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <source>8</source>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         </pluginManagement>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
 </project>

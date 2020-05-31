@@ -6,7 +6,7 @@ os:
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PLATFORM=macosx-x86_64   ; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export PLATFORM=linux-x86_64  ; fi
-install: mvn -B -V -pl shap4j -Djavacpp.platform=$PLATFORM -DskipTests -Dmaven.javadoc.skip=true install
+install: mvn -B -V -pl shap4j -Dgpg.skip=true -Djavacpp.platform=$PLATFORM -DskipTests -Dmaven.javadoc.skip=true install
 script:
   - mvn -B -pl shap4j -Djavacpp.platform=$PLATFORM test
 jdk:

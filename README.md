@@ -2,16 +2,27 @@
 
 ![Build Status](https://api.travis-ci.org/xydrolase/shap4j.svg?branch=master)
 
-JVM interface for the [SHAP (SHapley Additive exPlanations) library](https://github.com/slundberg/shap) for tree 
-ensembles (`TreeExplainer`.), built using [`javacpp`](https://github.com/bytedeco/javacpp)
+Java interface for the [SHAP (SHapley Additive exPlanations) library](https://github.com/slundberg/shap) for tree 
+ensembles (`TreeExplainer`). Note that `shap4j` is not a pure Java port of SHAP. Rather, it utilizes
+[`JavaCPP`](https://github.com/bytedeco/javacpp) to provide a Java-Native Interface (JNI) on top of the
+[fast C++ implementation of `TreeExplainer`](https://github.com/slundberg/shap/blob/master/shap/tree_shap.h).
+In this sense, `shap4j` leverages the same underlying native code that powers the
+[Python version of `TreeExplainer`](https://github.com/slundberg/shap#tree-ensemble-example-with-treeexplainer-xgboostlightgbmcatboostscikit-learnpyspark-models),
+to ensure validity and efficiency.
+
+Current supported platforms:
+
+ - `macosx-x86_64`
+ - `linux-x86_64`
 
 #### Use cases
-`shap4j` enables lean SHAP integration in JVM projects, without dependencies on third party tree ensemble runtime 
-libraries, _e.g._ XGBoost and LightGBM.
+`shap4j` enables lean SHAP integration in JVM projects, _i.e._ a project can import `shap4j` as the sole dependency,
+without having to depend on heavier third-party tree ensemble libraries, 
+_e.g._ [`xgboost4j`](https://github.com/dmlc/xgboost/tree/master/jvm-packages).
 
 ## Data generation
-To generate SHAP values for a specific tree ensemble model, the model must be provided in a `.shap4j` data file, which
-can be generated from model dumps of XGBoost/LightGBM/CatBoost/sklearn using the Python library
+To generate SHAP values for a specific tree ensemble model, that model must be provided in a `.shap4j` data file, which
+can be generated from model dumps of XGBoost/LightGBM/CatBoost/sklearn using the companion Python library
 [`shap4j-data-converter`](https://github.com/xydrolase/shap4j-data-converter).
 
 ## Usage

@@ -16,4 +16,8 @@ public class TreeShap {
                                               DoublePointer out_contribs,
                                               @Const int feature_dependence,
                                               int model_transform, boolean interactions);
+
+    public static native void dense_tree_saabas(DoublePointer out_contribs,
+                                                @Const @ByRef TreeEnsemble trees,
+                                                @Const @ByRef ExplanationDataset data);
 }

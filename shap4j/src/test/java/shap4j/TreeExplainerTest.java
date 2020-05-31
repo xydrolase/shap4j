@@ -2,14 +2,34 @@ package shap4j;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import shap4j.shap.ShapUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+
 public class TreeExplainerTest {
     private byte[] rawData;
     private TreeExplainer explainer;
+
+    private double[][] approximateExpected = {
+            {
+                    0.        ,  0.        ,  0.00894827,  0.        , -1.1371417 ,
+                    -1.4974804 , -0.02694616, -0.43359974,  0.        ,  0.        ,
+                    0.        ,  0.        ,  5.345535
+            },
+            {
+                    -0.07767473,  0.        ,  0.        ,  0.        ,  0.05598033,
+                    -1.6990675 ,  0.01063945, -0.28113094,  0.        , -0.00349796,
+                    0.04095722,  0.0068185 ,  2.621229
+            }
+    };
 
     private double[][] expected = {
             {
@@ -52,9 +72,46 @@ public class TreeExplainerTest {
     }
 
     @Test
+    public void testApproximateShapValuesForVector() {
+        double[] shapValues = explainer.shapValues(X[0], true, false);
+        assertArrayEquals(approximateExpected[0], shapValues, 1e-6);
+    }
+
+    @Test
     public void testShapValuesForMatrix() {
         double[][] shapValues = explainer.shapValues(X, false);
         assertArrayEquals(expected[0], shapValues[0], 1e-6);
         assertArrayEquals(expected[1], shapValues[1], 1e-6);
+    }
+
+    @Test
+    public void testApproximateShapValuesForMatrix() {
+        double[][] shapValues = explainer.shapValues(X, true, false);
+        assertArrayEquals(approximateExpected[0], shapValues[0], 1e-6);
+        assertArrayEquals(approximateExpected[1], shapValues[1], 1e-6);
+    }
+
+    @Test
+    public void testFromResource() throws IOException {
+        TreeExplainer resourceExplainer = TreeExplainer.fromResource("/boston.shap4j");
+
+        double[] shapValues = resourceExplainer.shapValues(X[0], false);
+        assertArrayEquals(expected[0], shapValues, 1e-6);
+    }
+
+    @Test
+    public void testFromFile() throws IOException {
+        // copy the resource file to a temporary file on disk
+        File tmpFile = Files.createTempFile("boston", ".shap4j").toFile();
+        tmpFile.deleteOnExit();
+
+        try (OutputStream os = new FileOutputStream(tmpFile)) {
+            IOUtils.copy(this.getClass().getResourceAsStream("/boston.shap4j"), os);
+        }
+
+        TreeExplainer fileExplainer = TreeExplainer.fromFile(tmpFile.getAbsolutePath());
+
+        double[] shapValues = fileExplainer.shapValues(X[0], false);
+        assertArrayEquals(expected[0], shapValues, 1e-6);
     }
 }

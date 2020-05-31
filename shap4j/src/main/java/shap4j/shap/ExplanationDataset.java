@@ -11,6 +11,9 @@ public class ExplanationDataset extends Pointer {
         Loader.load();
     }
 
+    private int numRows;
+    private int numCols;
+
     private ExplanationDataset() {
         allocate();
     }
@@ -22,6 +25,9 @@ public class ExplanationDataset extends Pointer {
     private ExplanationDataset(DoublePointer X, BoolPointer X_missing, DoublePointer y, DoublePointer R,
                                BoolPointer R_missing, int num_X, int M, int num_R) {
         scope = new PointerScope();
+
+        this.numRows = num_X;
+        this.numCols = M;
 
         // attach all non-null pointers to a local scope, so that when ExplanationDataset is closed, all attached
         // pointers are closed/released accordingly as well.
@@ -77,5 +83,13 @@ public class ExplanationDataset extends Pointer {
 
         // reset position for X
         return new ExplanationDataset(XPtr.position(0L), XmissingPtr, null, null, null, num_X, M, 0);
+    }
+
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public int getNumCols() {
+        return numCols;
     }
 }

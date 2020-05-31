@@ -9,7 +9,7 @@ import shap4j.shap.TreeShap;
 /**
  * A SHAP explainer using Tree SHAP algorithms to explain the output of tree ensemble models.
  *
- * @see <a href="https://github.com/slundberg/shap/blob/master/shap/explainers/tree.py>Python interface for TreeExplainer</a>
+ * @see <a href="https://github.com/slundberg/shap/blob/master/shap/explainers/tree.py">Python interface for TreeExplainer</a>
  */
 public class TreeExplainer {
     private static final int TREE_PATH_DEPENDENT_FEATURE = 1;

@@ -32,7 +32,7 @@ can be generated from model dumps of XGBoost/LightGBM/CatBoost/sklearn using the
 <dependency>
   <groupId>io.github.xydrolase</groupId>
   <artifactId>shap4j-platform</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
 </dependency>
 ```
 

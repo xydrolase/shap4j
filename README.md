@@ -1,6 +1,7 @@
 # shap4j
 
 ![Build Status](https://api.travis-ci.org/xydrolase/shap4j.svg?branch=master)
+[![javadoc](https://javadoc.io/badge2/io.github.xydrolase/shap4j/javadoc.svg)](https://javadoc.io/doc/io.github.xydrolase/shap4j) 
 
 Java interface for the [SHAP (SHapley Additive exPlanations) library](https://github.com/slundberg/shap) for tree 
 ensembles (`TreeExplainer`). Note that `shap4j` is not a pure Java port of SHAP. Rather, it utilizes
@@ -20,9 +21,9 @@ Current supported platforms:
 without having to depend on heavier third-party tree ensemble libraries, 
 _e.g._ [`xgboost4j`](https://github.com/dmlc/xgboost/tree/master/jvm-packages).
 
-## Data generation
-To generate SHAP values for a specific tree ensemble model, that model must be provided in a `.shap4j` data file, which
-can be generated from model dumps of XGBoost/LightGBM/CatBoost/sklearn using the companion Python library
+## Tree ensemble model conversion 
+In order for `shap4j` to explain a tree ensemble model, that model must be provided in a `.shap4j` data file, which can
+be generated from model dumps (pickle files) of XGBoost/LightGBM/CatBoost/sklearn using the companion Python library
 [`shap4j-data-converter`](https://github.com/xydrolase/shap4j-data-converter).
 
 ## Usage
@@ -34,6 +35,11 @@ can be generated from model dumps of XGBoost/LightGBM/CatBoost/sklearn using the
   <artifactId>shap4j-platform</artifactId>
   <version>0.0.1</version>
 </dependency>
+```
+
+#### SBT
+```
+libraryDependencies += "io.github.xydrolase" % "shap4j-platform" % "0.0.1"
 ```
 
 #### Example usage
@@ -59,3 +65,9 @@ class ExampleApp {
     }
 }
 ```
+The data file `boston.shap4j` can be found [here](https://github.com/xydrolase/shap4j/blob/master/shap4j/src/test/resources/boston.shap4j).
+Or, you can follow the examples in [`shap4j-data-converter`](https://github.com/xydrolase/shap4j-data-converter) to
+generate it yourself.
+
+#### API Docs
+ - [`TreeExplainer`](https://javadoc.io/doc/io.github.xydrolase/shap4j/latest/shap4j/TreeExplainer.html)

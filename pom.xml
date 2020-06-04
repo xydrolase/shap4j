@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.xydrolase</groupId>
     <artifactId>shap4j-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>shap4j-parent</name>
@@ -19,8 +18,9 @@
 
     <scm>
         <url>https://github.com/xydrolase/shap4j</url>
-        <connection>scm:git:git://github.com/xydrolase/shap4j.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:xydrolase/shap4j.git</developerConnection>
+        <connection>scm:git:git@github.com/xydrolase/shap4j.git</connection>
+        <developerConnection>scm:git:git@github.com:xydrolase/shap4j.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>
@@ -40,7 +40,7 @@
     <properties>
         <javacpp.moduleId>shap4j</javacpp.moduleId>
         <javacpp.version>1.5.3</javacpp.version>
-        <javacpp.platform></javacpp.platform>
+        <javacpp.platform />
         <javacpp.platform.nativeOutputPath>${project.artifactId}/${javacpp.platform}</javacpp.platform.nativeOutputPath>
         <scala.version>2.12.11</scala.version>
         <scala.binary.version>2.12</scala.binary.version>
@@ -187,6 +187,13 @@
             </plugin>
         </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
     <distributionManagement>

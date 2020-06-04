@@ -151,7 +151,7 @@ public class TreeExplainer {
      *                 <code>src/java/main/resources</code>.
      * @return An <code>TreeExplainer</code> instance corresponding to the tree model contained by the resource file.
      * @throws IOException
-     * @see <a href="https://github.com/xydrolase/shap4j-data-converter>shap4j-data-converter to create the .shap4j file</a>
+     * @see <a href="https://github.com/xydrolase/shap4j-data-converter">shap4j-data-converter to create the .shap4j file</a>
      */
     public static TreeExplainer fromResource(String resource) throws IOException {
         try(InputStream is = TreeExplainer.class.getResourceAsStream(resource)) {
@@ -170,7 +170,7 @@ public class TreeExplainer {
      * @param filePath The file path to the <code>.shap4j</code> file.
      * @return An <code>TreeExplainer</code> instance corresponding to the tree model contained by the local file.
      * @throws IOException
-     * @see <a href="https://github.com/xydrolase/shap4j-data-converter>shap4j-data-converter to create the .shap4j file</a>
+     * @see <a href="https://github.com/xydrolase/shap4j-data-converter">shap4j-data-converter to create the .shap4j file</a>
      */
     public static TreeExplainer fromFile(String filePath) throws IOException {
         byte[] data = Files.readAllBytes(new File(filePath).toPath());

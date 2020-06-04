@@ -19,8 +19,8 @@
 
     <scm>
         <url>https://github.com/xydrolase/shap4j</url>
-        <connection>scm:git:git://github.com/xydrolase/shap4j.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:xydrolase/shap4j.git</developerConnection>
+        <connection>scm:git:git@github.com/xydrolase/shap4j.git</connection>
+        <developerConnection>scm:git:git@github.com:xydrolase/shap4j.git</developerConnection>
     </scm>
 
     <licenses>

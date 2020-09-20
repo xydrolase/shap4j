@@ -155,8 +155,20 @@ public class TreeExplainer {
      */
     public static TreeExplainer fromResource(String resource) throws IOException {
         try(InputStream is = TreeExplainer.class.getResourceAsStream(resource)) {
-            byte[] data = new byte[is.available()];
-            is.read(data);
+            int bytesRemaining = is.available();
+            int readOffset = 0;
+            byte[] data = new byte[bytesRemaining];
+
+            while (bytesRemaining > 0) {
+                int bytesRead = is.read(data, readOffset, bytesRemaining);
+                if (bytesRead == -1) {
+                    // InputStream.read() returns -1 if it reaches the end of the stream.
+                    bytesRemaining = 0;
+                } else {
+                    bytesRemaining -= bytesRead;
+                    readOffset += bytesRead;
+                }
+            }
 
             return new TreeExplainer(data);
         }

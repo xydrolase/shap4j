@@ -5,12 +5,12 @@
     <parent>
         <groupId>io.github.xydrolase</groupId>
         <artifactId>shap4j-parent</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.0.2</version>
         <relativePath>../</relativePath>
     </parent>
 
     <artifactId>shap4j-platform</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>JavaCPP Platform for shap4j</name>
 
     <dependencies>

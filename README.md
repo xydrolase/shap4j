@@ -33,13 +33,13 @@ be generated from model dumps (pickle files) of XGBoost/LightGBM/CatBoost/sklear
 <dependency>
   <groupId>io.github.xydrolase</groupId>
   <artifactId>shap4j-platform</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
 #### SBT
 ```
-libraryDependencies += "io.github.xydrolase" % "shap4j-platform" % "0.0.1"
+libraryDependencies += "io.github.xydrolase" % "shap4j-platform" % "0.0.2"
 ```
 
 #### Example usage

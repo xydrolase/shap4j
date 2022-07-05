@@ -39,7 +39,7 @@
 
     <properties>
         <javacpp.moduleId>shap4j</javacpp.moduleId>
-        <javacpp.version>1.5.3</javacpp.version>
+        <javacpp.version>1.5.7</javacpp.version>
         <javacpp.platform />
         <javacpp.platform.nativeOutputPath>${project.artifactId}/${javacpp.platform}</javacpp.platform.nativeOutputPath>
         <scala.version>2.12.11</scala.version>

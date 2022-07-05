@@ -31,6 +31,12 @@
             <version>${project.version}</version>
             <classifier>macosx-x86_64</classifier>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${javacpp.moduleId}</artifactId>
+            <version>${project.version}</version>
+            <classifier>macosx-arm64</classifier>
+        </dependency>
     </dependencies>
 
     <build>

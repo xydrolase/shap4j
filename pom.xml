@@ -4,7 +4,7 @@
 
     <groupId>io.github.xydrolase</groupId>
     <artifactId>shap4j-parent</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>shap4j-parent</name>
@@ -20,7 +20,7 @@
         <url>https://github.com/xydrolase/shap4j</url>
         <connection>scm:git:git@github.com/xydrolase/shap4j.git</connection>
         <developerConnection>scm:git:git@github.com:xydrolase/shap4j.git</developerConnection>
-        <tag>v0.0.3</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>

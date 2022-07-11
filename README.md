@@ -14,6 +14,7 @@ to ensure validity and efficiency.
 Current supported platforms:
 
  - `macosx-x86_64`
+ - `macosx-arm64`
  - `linux-x86_64`
 
 #### Use cases
@@ -33,13 +34,13 @@ be generated from model dumps (pickle files) of XGBoost/LightGBM/CatBoost/sklear
 <dependency>
   <groupId>io.github.xydrolase</groupId>
   <artifactId>shap4j-platform</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
 </dependency>
 ```
 
 #### SBT
 ```
-libraryDependencies += "io.github.xydrolase" % "shap4j-platform" % "0.0.2"
+libraryDependencies += "io.github.xydrolase" % "shap4j-platform" % "0.0.3"
 ```
 
 #### Example usage
